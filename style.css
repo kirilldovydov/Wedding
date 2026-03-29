@@ -1,0 +1,388 @@
+/* --- ПЕРЕМЕННЫЕ --- */
+:root {
+    --bg-color: #F7F5F0;
+    --text-color: #2C3E38;
+    --accent-color: #A3B19B;
+    --font-heading: 'Cormorant Garamond', serif;
+    --font-body: 'Montserrat', sans-serif;
+    --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* --- БАЗОВЫЕ НАСТРОЙКИ (Mobile-first) --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+.container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 80px 20px;
+}
+
+h1, h2, h3, .section-title {
+    font-family: var(--font-heading);
+    font-weight: 400;
+}
+
+/* --- HERO SECTION --- */
+.hero {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+}
+
+/* Имитация текстуры или фона (вместо тяжелой картинки используем стильный градиент) */
+.hero-bg {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to bottom, rgba(247, 245, 240, 0.1), var(--bg-color)),
+                radial-gradient(circle at 50% 30%, rgba(163, 177, 155, 0.2) 0%, transparent 60%);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    opacity: 0; /* Для GSAP */
+}
+
+.hero-subtitle {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: 2rem;
+    color: var(--accent-color);
+    font-family: var(--font-body);
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    line-height: 1.1;
+    margin-bottom: 2rem;
+}
+
+.hero-title span {
+    font-style: italic;
+    font-size: 2.5rem;
+    color: var(--accent-color);
+}
+
+.hero-date {
+    font-size: 1.2rem;
+    letter-spacing: 0.15em;
+    font-family: var(--font-body);
+    font-weight: 300;
+}
+
+/* --- INFO SECTION --- */
+.info {
+    text-align: center;
+    padding-top: 40px;
+}
+
+.info-text {
+    font-size: 1.1rem;
+    font-weight: 300;
+    margin-bottom: 3rem;
+}
+
+.info-location {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.location-title {
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: var(--accent-color);
+}
+
+.location-name {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+}
+
+.location-desc {
+    font-size: 0.9rem;
+    font-weight: 300;
+}
+
+/* --- TIMELINE --- */
+.section-title {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.timeline {
+    position: relative;
+    padding-left: 20px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 6px;
+    width: 1px; height: 100%;
+    background-color: var(--accent-color);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 2.5rem;
+    padding-left: 30px;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    top: 6px; left: -2px;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background-color: var(--bg-color);
+    border: 1px solid var(--accent-color);
+}
+
+.timeline-time {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--accent-color);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+}
+
+.timeline-content {
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.timeline-content span {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 300;
+    color: rgba(44, 62, 56, 0.7);
+    margin-top: 0.2rem;
+}
+
+/* --- RSVP FORM --- */
+.rsvp-section {
+    padding-bottom: 120px;
+}
+
+.rsvp-subtitle {
+    text-align: center;
+    font-size: 0.9rem;
+    margin-bottom: 3rem;
+    font-weight: 300;
+}
+
+.rsvp-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 2.5rem;
+}
+
+.group-title {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--accent-color);
+}
+
+/* Стилизация инпутов */
+input[type="text"] {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(44, 62, 56, 0.3);
+    padding: 10px 0;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--text-color);
+    transition: var(--transition);
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-bottom-color: var(--accent-color);
+}
+
+input[type="text"]::placeholder {
+    color: rgba(44, 62, 56, 0.4);
+    font-weight: 300;
+}
+
+/* Кастомные радио и чекбоксы */
+.radio-group, .checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.radio-group.vertical {
+    flex-direction: column;
+    gap: 1rem;
+}
+
+label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 300;
+}
+
+input[type="radio"], input[type="checkbox"] {
+    display: none;
+}
+
+.radio-custom, .check-custom {
+    width: 18px;
+    height: 18px;
+    border: 1px solid var(--accent-color);
+    margin-right: 10px;
+    display: inline-block;
+    position: relative;
+    transition: var(--transition);
+}
+
+.radio-custom { border-radius: 50%; }
+
+input[type="radio"]:checked + .radio-custom::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background-color: var(--accent-color);
+}
+
+input[type="checkbox"]:checked + .check-custom {
+    background-color: var(--accent-color);
+}
+
+input[type="checkbox"]:checked + .check-custom::after {
+    content: '';
+    position: absolute;
+    top: 2px; left: 6px;
+    width: 4px; height: 9px;
+    border: solid var(--bg-color);
+    border-width: 0 1px 1px 0;
+    transform: rotate(45deg);
+}
+
+/* Скрытый блок с анимацией через Grid */
+.conditional-wrapper {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.conditional-wrapper.active {
+    grid-template-rows: 1fr;
+}
+
+.conditional-content {
+    overflow: hidden;
+}
+
+/* Кнопка */
+.submit-btn {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--text-color);
+    color: var(--bg-color);
+    border: none;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-top: 1rem;
+}
+
+.submit-btn:hover {
+    background-color: var(--accent-color);
+}
+
+.submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.form-message {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 0.9rem;
+    min-height: 20px;
+}
+
+/* --- МЕДИАЗАПРОСЫ (Tablets & Desktops) --- */
+@media (min-width: 768px) {
+    .container {
+        padding: 120px 40px;
+    }
+    .hero-title {
+        font-size: 6rem;
+    }
+    .hero-title span {
+        font-size: 4rem;
+    }
+    .info-text {
+        font-size: 1.4rem;
+    }
+    .section-title {
+        font-size: 3.5rem;
+    }
+    .timeline {
+        padding-left: 50%;
+    }
+    .timeline::before {
+        left: 50%;
+    }
+    .timeline-item {
+        width: 50%;
+        padding-left: 40px;
+        padding-right: 0;
+    }
+    .timeline-item:nth-child(even) {
+        margin-left: auto;
+    }
+    .timeline-item:nth-child(odd) {
+        text-align: right;
+        padding-right: 40px;
+        padding-left: 0;
+    }
+    .timeline-item:nth-child(even)::before {
+        left: -5px;
+    }
+    .timeline-item:nth-child(odd)::before {
+        right: -4px;
+        left: auto;
+    }
+}

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кирилл и Александра | Свадебное приглашение</title>
+    
+    <!-- Подключение шрифтов -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Подключение стилей -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Главный экран -->
+    <section class="hero" id="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h3 class="hero-subtitle">Дом у тихой воды</h3>
+            <h1 class="hero-title">Кирилл <br> <span>&</span> <br> Александра</h1>
+            <h2 class="hero-date">27 . 07 . 2026</h2>
+        </div>
+    </section>
+
+    <!-- Инфо-блок -->
+    <section class="info container gsap-reveal">
+        <p class="info-text">
+            Мы приглашаем вас разделить с нами день, когда мы станем семьей. <br>
+            Вдали от городской суеты, в окружении вековых сосен и тихой воды.
+        </p>
+        <div class="info-location">
+            <span class="location-title">Локация</span>
+            <span class="location-name">Ресторан «Времена года»</span>
+            <span class="location-desc">Лес на берегу Обского моря</span>
+        </div>
+    </section>
+
+    <!-- Тайминг (Timeline) -->
+    <section class="timeline-section container gsap-reveal">
+        <h2 class="section-title">Тайминг дня</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-time">15:30</div>
+                <div class="timeline-content">Сбор гостей (Welcome)</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-time">16:30</div>
+                <div class="timeline-content">Начало церемонии</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-time">17:30</div>
+                <div class="timeline-content">Начало свадебного ужина</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-time">20:30</div>
+                <div class="timeline-content">Золотой час<br><span>Время для эстетичных фото на закате</span></div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-time">22:00</div>
+                <div class="timeline-content">Вынос торта</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-time">23:30</div>
+                <div class="timeline-content">Завершение банкета</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RSVP Форма -->
+    <section class="rsvp-section container gsap-reveal">
+        <h2 class="section-title">RSVP</h2>
+        <p class="rsvp-subtitle">Пожалуйста, подтвердите ваше присутствие до 1 июля 2026 года</p>
+        
+        <form id="rsvp-form" class="rsvp-form">
+            <!-- Базовые поля -->
+            <div class="form-group">
+                <input type="text" id="guest-name" name="name" required placeholder="Ваше Имя и Фамилия">
+            </div>
+
+            <div class="form-group radio-group main-attendance">
+                <label class="radio-label">
+                    <input type="radio" name="attendance" value="yes" required>
+                    <span class="radio-custom"></span>
+                    С удовольствием приду
+                </label>
+                <label class="radio-label">
+                    <input type="radio" name="attendance" value="no">
+                    <span class="radio-custom"></span>
+                    К сожалению, не смогу
+                </label>
+            </div>
+
+            <!-- Скрытый блок (раскрывается при выборе "Приду") -->
+            <div class="conditional-wrapper" id="conditional-fields">
+                <div class="conditional-content">
+                    
+                    <div class="form-group">
+                        <span class="group-title">Алкоголь</span>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" name="alcohol" value="Крепкий"><span class="check-custom"></span>Крепкий</label>
+                            <label><input type="checkbox" name="alcohol" value="Шампанское"><span class="check-custom"></span>Шампанское</label>
+                            <label><input type="checkbox" name="alcohol" value="Вино"><span class="check-custom"></span>Вино</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="group-title">Безалкогольные напитки</span>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" name="non_alcohol" value="Сок"><span class="check-custom"></span>Сок</label>
+                            <label><input type="checkbox" name="non_alcohol" value="Вода"><span class="check-custom"></span>Вода</label>
+                            <label><input type="checkbox" name="non_alcohol" value="Морс"><span class="check-custom"></span>Морс</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="group-title">Трансфер</span>
+                        <div class="radio-group vertical">
+                            <label><input type="radio" name="transfer" value="Сам из Новосибирска"><span class="radio-custom"></span>Приеду сам из Новосибирска</label>
+                            <label><input type="radio" name="transfer" value="Сам из Барнаула"><span class="radio-custom"></span>Приеду сам из Барнаула</label>
+                            <label><input type="radio" name="transfer" value="Трансфер из Новосибирска"><span class="radio-custom"></span>Трансфер с гостями из Новосибирска</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="group-title">Проживание</span>
+                        <div class="radio-group vertical">
+                            <label><input type="radio" name="accommodation" value="Нужна помощь"><span class="radio-custom"></span>Нужна помощь с поиском жилья</label>
+                            <label><input type="radio" name="accommodation" value="Сам забронирую"><span class="radio-custom"></span>Выберу и забронирую самостоятельно</label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submit-btn">Отправить ответ</button>
+            <div class="form-message" id="form-message"></div>
+        </form>
+    </section>
+
+    <!-- Подключение GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
