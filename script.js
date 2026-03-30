@@ -5,27 +5,27 @@ document.addEventListener("DOMContentLoaded", () => {
     // ==========================================
     gsap.registerPlugin(ScrollTrigger);
 
-    // Анимация главного экрана при загрузке (появление и легкое движение вверх)
+    // Анимация главного экрана
     gsap.to(".hero-content", {
         opacity: 1,
         y: 0,
-        duration: 1.5,
+        duration: 1.8,
         ease: "power3.out",
-        delay: 0.2
+        delay: 0.5
     });
 
-    // Анимация появления остальных секций при скролле
+    // Анимация появления остальных секций
     const revealElements = document.querySelectorAll('.gsap-reveal');
     revealElements.forEach(el => {
         gsap.from(el, {
             scrollTrigger: {
                 trigger: el,
-                start: "top 85%", // Анимация стартует, когда верх блока достигает 85% высоты экрана
+                start: "top 85%",
                 toggleActions: "play none none reverse"
             },
             opacity: 0,
             y: 40,
-            duration: 1.2,
+            duration: 1.4,
             ease: "power2.out"
         });
     });
@@ -35,73 +35,92 @@ document.addEventListener("DOMContentLoaded", () => {
     // ==========================================
     const attendanceRadios = document.querySelectorAll('input[name="attendance"]');
     const conditionalWrapper = document.getElementById('conditional-fields');
-    const conditionalInputs = conditionalWrapper.querySelectorAll('input[type="radio"]');
+    const transferRadios = document.querySelectorAll('input[name="transfer"]');
+    const accommodationRadios = document.querySelectorAll('input[name="accommodation"]');
+
+    const toggleRequired = (isRequired) => {
+        transferRadios.forEach(radio => radio.required = isRequired);
+        accommodationRadios.forEach(radio => radio.required = isRequired);
+    };
 
     attendanceRadios.forEach(radio => {
         radio.addEventListener('change', (e) => {
             if (e.target.value === 'yes') {
-                // Если "Приду" -> плавно раскрываем блок через CSS Grid
                 conditionalWrapper.classList.add('active');
-                
-                // Делаем обязательным выбор трансфера и проживания
-                conditionalWrapper.querySelector('input[name="transfer"]').required = true;
-                conditionalWrapper.querySelector('input[name="accommodation"]').required = true;
+                conditionalWrapper.setAttribute('aria-hidden', 'false');
+                toggleRequired(true);
             } else {
-                // Если "Не приду" -> скрываем блок
                 conditionalWrapper.classList.remove('active');
-                
-                // Снимаем обязательность полей, чтобы форма отправилась
-                conditionalInputs.forEach(input => input.required = false);
+                conditionalWrapper.setAttribute('aria-hidden', 'true');
+                toggleRequired(false);
             }
         });
     });
 
     // ==========================================
-    // 3. ОТПРАВКА ДАННЫХ В GOOGLE ТАБЛИЦУ
+    // 3. УПРАВЛЕНИЕ АУДИО
+    // ==========================================
+    const audio = document.getElementById('ambient-audio');
+    const audioBtn = document.getElementById('audio-btn');
+    const iconPlay = document.getElementById('icon-play');
+    const iconPause = document.getElementById('icon-pause');
+    let isPlaying = false;
+
+    audioBtn.addEventListener('click', () => {
+        if (isPlaying) {
+            audio.pause();
+            iconPlay.style.display = 'block';
+            iconPause.style.display = 'none';
+        } else {
+            audio.play().catch(e => console.log("Audio play blocked by browser"));
+            iconPlay.style.display = 'none';
+            iconPause.style.display = 'block';
+        }
+        isPlaying = !isPlaying;
+    });
+
+    // ==========================================
+    // 4. ОТПРАВКА ДАННЫХ В GOOGLE ТАБЛИЦУ
     // ==========================================
     const form = document.getElementById('rsvp-form');
     const submitBtn = document.getElementById('submit-btn');
     const formMessage = document.getElementById('form-message');
 
-    // Твой персональный URL веб-приложения Google Apps Script
     const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw2c32O7Xd5HVsYd2dec5MYhErz39lH_4oqqN7wWq8K9evPCWHpmtsUoE1p07fFvr0Dvw/exec'; 
 
     form.addEventListener('submit', async (e) => {
-        e.preventDefault(); // Останавливаем стандартную перезагрузку страницы
+        e.preventDefault();
 
-        // Сохраняем исходный текст кнопки и меняем его на индикатор загрузки
         const originalBtnText = submitBtn.innerText;
         submitBtn.innerText = 'Отправка...';
-        submitBtn.disabled = true; // Блокируем кнопку от двойного клика
-        formMessage.innerText = ''; // Очищаем старые сообщения
+        submitBtn.disabled = true;
+        formMessage.innerText = '';
 
-        // Собираем все введенные пользователем данные
         const formData = new FormData(form);
 
         try {
-            // Отправляем POST-запрос на сервер Google
             const response = await fetch(GOOGLE_SCRIPT_URL, {
                 method: 'POST',
                 body: formData
             });
 
-            // Если сервер Google ответил успешно
             if (response.ok) {
-                formMessage.style.color = "var(--accent-color)"; // Зеленоватый цвет успеха
+                formMessage.style.color = "var(--accent-color)";
                 formMessage.innerText = 'Спасибо! Ваш ответ успешно отправлен.';
-                form.reset(); // Очищаем поля формы
-                conditionalWrapper.classList.remove('active'); // Скрываем дополнительные поля, если они были открыты
+                form.reset();
+                
+                // Сброс состояния после отправки
+                conditionalWrapper.classList.remove('active');
+                conditionalWrapper.setAttribute('aria-hidden', 'true');
+                toggleRequired(false); // Снимаем required, чтобы не блокировать повторную отправку
             } else {
-                // Если сервер вернул ошибку
-                throw new Error('Ошибка сети при отправке данных');
+                throw new Error('Ошибка сети');
             }
         } catch (error) {
-            // Если пропал интернет или скрипт Google недоступен
             console.error('Ошибка отправки:', error);
-            formMessage.style.color = "red";
-            formMessage.innerText = 'Произошла ошибка при отправке. Пожалуйста, попробуйте позже.';
+            formMessage.style.color = "#d9534f";
+            formMessage.innerText = 'Произошла ошибка. Пожалуйста, попробуйте позже.';
         } finally {
-            // В любом случае (успех или ошибка) возвращаем кнопку в исходное состояние
             submitBtn.innerText = originalBtnText;
             submitBtn.disabled = false;
         }

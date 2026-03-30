@@ -1,18 +1,23 @@
-/* --- ПЕРЕМЕННЫЕ --- */
+/* --- ПЕРЕМЕННЫЕ (Quiet Luxury Palette) --- */
 :root {
-    --bg-color: #F7F5F0;
-    --text-color: #2C3E38;
-    --accent-color: #A3B19B;
+    --bg-color: #FAF8F5; /* Теплый айвори */
+    --text-color: #3D3D3D; /* Мягкий графит */
+    --accent-color: #C9B99A; /* Золотисто-бежевый (светлое дерево) */
     --font-heading: 'Cormorant Garamond', serif;
     --font-body: 'Montserrat', sans-serif;
-    --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --transition: 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --noise: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3BaseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%" height="100%" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
 }
 
-/* --- БАЗОВЫЕ НАСТРОЙКИ (Mobile-first) --- */
+/* --- БАЗОВЫЕ НАСТРОЙКИ --- */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
@@ -21,204 +26,278 @@ body {
     font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
-    line-height: 1.6;
+    line-height: 1.7;
 }
 
 .container {
     width: 100%;
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
-    padding: 80px 20px;
+    padding: 100px 24px;
 }
 
 h1, h2, h3, .section-title {
     font-family: var(--font-heading);
     font-weight: 400;
+    letter-spacing: 0.02em;
 }
 
 /* --- HERO SECTION --- */
 .hero {
     position: relative;
     height: 100vh;
-    min-height: 600px;
+    min-height: 700px;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     overflow: hidden;
+    background-color: var(--bg-color);
 }
 
-/* Имитация текстуры или фона (вместо тяжелой картинки используем стильный градиент) */
 .hero-bg {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(to bottom, rgba(247, 245, 240, 0.1), var(--bg-color)),
-                radial-gradient(circle at 50% 30%, rgba(163, 177, 155, 0.2) 0%, transparent 60%);
+    background-image: url('hero-bg.jpg'); /* Пользователь подключит позже */
+    background-size: cover;
+    background-position: center;
+    filter: blur(2px) brightness(0.95);
     z-index: 1;
+}
+
+/* Эффект шума для текстурности */
+.hero::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: var(--noise);
+    opacity: 0.04;
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* Мягкий оверлей */
+.hero::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to bottom, rgba(250, 248, 245, 0.2), var(--bg-color));
+    z-index: 2;
 }
 
 .hero-content {
     position: relative;
-    z-index: 2;
-    opacity: 0; /* Для GSAP */
+    z-index: 3;
+    opacity: 0;
+    transform: translateY(30px);
 }
 
 .hero-subtitle {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     text-transform: uppercase;
-    letter-spacing: 0.2em;
-    margin-bottom: 2rem;
-    color: var(--accent-color);
-    font-family: var(--font-body);
+    letter-spacing: 0.4em;
+    margin-bottom: 2.5rem;
+    color: var(--text-color);
+    font-weight: 300;
 }
 
 .hero-title {
-    font-size: 3.5rem;
-    line-height: 1.1;
-    margin-bottom: 2rem;
+    font-size: clamp(3rem, 10vw, 6rem);
+    line-height: 1;
+    margin-bottom: 2.5rem;
 }
 
 .hero-title span {
     font-style: italic;
-    font-size: 2.5rem;
+    font-size: 0.7em;
     color: var(--accent-color);
+    display: block;
+    margin: 0.2em 0;
 }
 
 .hero-date {
-    font-size: 1.2rem;
-    letter-spacing: 0.15em;
-    font-family: var(--font-body);
+    font-size: 1.1rem;
+    letter-spacing: 0.2em;
     font-weight: 300;
 }
 
 /* --- INFO SECTION --- */
 .info {
     text-align: center;
-    padding-top: 40px;
 }
 
 .info-text {
-    font-size: 1.1rem;
+    font-size: clamp(1.1rem, 4vw, 1.4rem);
     font-weight: 300;
-    margin-bottom: 3rem;
+    margin-bottom: 4rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .info-location {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.8rem;
 }
 
 .location-title {
     text-transform: uppercase;
-    font-size: 0.7rem;
-    letter-spacing: 0.1em;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
     color: var(--accent-color);
 }
 
 .location-name {
     font-family: var(--font-heading);
-    font-size: 2rem;
-}
-
-.location-desc {
-    font-size: 0.9rem;
-    font-weight: 300;
+    font-size: clamp(2rem, 6vw, 3rem);
 }
 
 /* --- TIMELINE --- */
 .section-title {
-    font-size: 2.5rem;
+    font-size: clamp(2.5rem, 8vw, 4rem);
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 4rem;
 }
 
 .timeline {
     position: relative;
-    padding-left: 20px;
+    max-width: 700px;
+    margin: 0 auto;
 }
 
 .timeline::before {
     content: '';
     position: absolute;
-    top: 0; left: 6px;
+    top: 0; left: 8px;
     width: 1px; height: 100%;
     background-color: var(--accent-color);
+    opacity: 0.5;
 }
 
 .timeline-item {
     position: relative;
-    margin-bottom: 2.5rem;
-    padding-left: 30px;
+    margin-bottom: 3.5rem;
+    padding-left: 40px;
 }
 
 .timeline-item::before {
     content: '';
     position: absolute;
-    top: 6px; left: -2px;
+    top: 8px; left: 4px;
     width: 9px; height: 9px;
     border-radius: 50%;
     background-color: var(--bg-color);
     border: 1px solid var(--accent-color);
+    z-index: 2;
 }
 
 .timeline-time {
     font-family: var(--font-heading);
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     color: var(--accent-color);
-    line-height: 1;
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.5rem;
 }
 
 .timeline-content {
-    font-size: 1rem;
+    font-size: 1.05rem;
     font-weight: 400;
 }
 
 .timeline-content span {
     display: block;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 300;
-    color: rgba(44, 62, 56, 0.7);
-    margin-top: 0.2rem;
+    opacity: 0.7;
+    margin-top: 0.4rem;
+}
+
+/* Календарь кнопка */
+.calendar-btn {
+    display: inline-block;
+    margin-top: 3rem;
+    padding: 12px 24px;
+    border: 1px solid var(--accent-color);
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    transition: var(--transition);
+}
+
+.calendar-btn:hover {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+/* --- DRESS CODE --- */
+.dress-code {
+    text-align: center;
+}
+
+.dress-code-text {
+    font-weight: 300;
+    margin-bottom: 3rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.color-palette {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.color-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+}
+
+.color-circle:hover {
+    transform: scale(1.1);
 }
 
 /* --- RSVP FORM --- */
 .rsvp-section {
-    padding-bottom: 120px;
+    padding-bottom: 150px;
 }
 
 .rsvp-subtitle {
     text-align: center;
-    font-size: 0.9rem;
-    margin-bottom: 3rem;
+    font-size: 0.95rem;
+    margin-bottom: 4rem;
     font-weight: 300;
 }
 
 .rsvp-form {
-    max-width: 600px;
+    max-width: 550px;
     margin: 0 auto;
 }
 
 .form-group {
-    margin-bottom: 2.5rem;
+    margin-bottom: 3rem;
 }
 
 .group-title {
     display: block;
     font-family: var(--font-heading);
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    color: var(--accent-color);
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
 }
 
-/* Стилизация инпутов */
 input[type="text"] {
     width: 100%;
     background: transparent;
     border: none;
-    border-bottom: 1px solid rgba(44, 62, 56, 0.3);
-    padding: 10px 0;
+    border-bottom: 1px solid rgba(61, 61, 61, 0.2);
+    padding: 12px 0;
     font-family: var(--font-body);
     font-size: 1rem;
     color: var(--text-color);
@@ -230,12 +309,6 @@ input[type="text"]:focus {
     border-bottom-color: var(--accent-color);
 }
 
-input[type="text"]::placeholder {
-    color: rgba(44, 62, 56, 0.4);
-    font-weight: 300;
-}
-
-/* Кастомные радио и чекбоксы */
 .radio-group, .checkbox-group {
     display: flex;
     flex-wrap: wrap;
@@ -244,7 +317,7 @@ input[type="text"]::placeholder {
 
 .radio-group.vertical {
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.2rem;
 }
 
 label {
@@ -253,6 +326,11 @@ label {
     cursor: pointer;
     font-size: 0.95rem;
     font-weight: 300;
+    transition: opacity 0.3s ease;
+}
+
+label:hover {
+    opacity: 0.7;
 }
 
 input[type="radio"], input[type="checkbox"] {
@@ -260,13 +338,13 @@ input[type="radio"], input[type="checkbox"] {
 }
 
 .radio-custom, .check-custom {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     border: 1px solid var(--accent-color);
-    margin-right: 10px;
+    margin-right: 12px;
     display: inline-block;
     position: relative;
-    transition: var(--transition);
+    flex-shrink: 0;
 }
 
 .radio-custom { border-radius: 50%; }
@@ -288,101 +366,108 @@ input[type="checkbox"]:checked + .check-custom {
 input[type="checkbox"]:checked + .check-custom::after {
     content: '';
     position: absolute;
-    top: 2px; left: 6px;
+    top: 3px; left: 7px;
     width: 4px; height: 9px;
-    border: solid var(--bg-color);
+    border: solid white;
     border-width: 0 1px 1px 0;
     transform: rotate(45deg);
 }
 
-/* Скрытый блок с анимацией через Grid */
 .conditional-wrapper {
     display: grid;
     grid-template-rows: 0fr;
-    transition: grid-template-rows 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: grid-template-rows 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .conditional-wrapper.active {
     grid-template-rows: 1fr;
+    margin-top: 2rem;
 }
 
 .conditional-content {
     overflow: hidden;
 }
 
-/* Кнопка */
 .submit-btn {
     width: 100%;
-    padding: 15px;
+    padding: 20px;
     background-color: var(--text-color);
     color: var(--bg-color);
     border: none;
     font-family: var(--font-body);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.2em;
     cursor: pointer;
     transition: var(--transition);
-    margin-top: 1rem;
+    margin-top: 2rem;
 }
 
 .submit-btn:hover {
     background-color: var(--accent-color);
+    letter-spacing: 0.25em;
 }
 
-.submit-btn:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
+/* --- AUDIO CONTROL --- */
+.audio-control {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 100;
 }
 
-.form-message {
-    margin-top: 1rem;
-    text-align: center;
-    font-size: 0.9rem;
-    min-height: 20px;
+.audio-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: rgba(250, 248, 245, 0.8);
+    border: 1px solid var(--accent-color);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    backdrop-filter: blur(5px);
+    color: var(--text-color);
 }
 
-/* --- МЕДИАЗАПРОСЫ (Tablets & Desktops) --- */
+.audio-btn:hover {
+    transform: scale(1.1);
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.audio-btn svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+}
+
+/* --- RESPONSIVE --- */
 @media (min-width: 768px) {
-    .container {
-        padding: 120px 40px;
-    }
-    .hero-title {
-        font-size: 6rem;
-    }
-    .hero-title span {
-        font-size: 4rem;
-    }
-    .info-text {
-        font-size: 1.4rem;
-    }
-    .section-title {
-        font-size: 3.5rem;
-    }
-    .timeline {
-        padding-left: 50%;
-    }
     .timeline::before {
         left: 50%;
     }
     .timeline-item {
         width: 50%;
-        padding-left: 40px;
-        padding-right: 0;
+        padding-left: 50px;
     }
     .timeline-item:nth-child(even) {
         margin-left: auto;
     }
     .timeline-item:nth-child(odd) {
         text-align: right;
-        padding-right: 40px;
+        padding-right: 50px;
         padding-left: 0;
     }
-    .timeline-item:nth-child(even)::before {
+    .timeline-item::before {
         left: -5px;
     }
     .timeline-item:nth-child(odd)::before {
-        right: -4px;
         left: auto;
+        right: -4px;
+    }
+    .timeline-item:nth-child(even)::before {
+        left: -4px;
     }
 }
