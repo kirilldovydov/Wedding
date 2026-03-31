@@ -58,29 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ==========================================
-    // 3. УПРАВЛЕНИЕ АУДИО
-    // ==========================================
-    const audio = document.getElementById('ambient-audio');
-    const audioBtn = document.getElementById('audio-btn');
-    const iconPlay = document.getElementById('icon-play');
-    const iconPause = document.getElementById('icon-pause');
-    let isPlaying = false;
-
-    audioBtn.addEventListener('click', () => {
-        if (isPlaying) {
-            audio.pause();
-            iconPlay.style.display = 'block';
-            iconPause.style.display = 'none';
-        } else {
-            audio.play().catch(e => console.log("Audio play blocked by browser"));
-            iconPlay.style.display = 'none';
-            iconPause.style.display = 'block';
-        }
-        isPlaying = !isPlaying;
-    });
-
-    // ==========================================
-    // 4. ОТПРАВКА ДАННЫХ В GOOGLE ТАБЛИЦУ
+    // 3. ОТПРАВКА ДАННЫХ В GOOGLE ТАБЛИЦУ
     // ==========================================
     const form = document.getElementById('rsvp-form');
     const submitBtn = document.getElementById('submit-btn');
