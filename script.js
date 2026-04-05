@@ -1,20 +1,35 @@
 document.addEventListener("DOMContentLoaded", () => {
     
     // ==========================================
-    // 1. ИНИЦИАЛИЗАЦИЯ GSAP И АНИМАЦИЙ
+    // 1. КИНЕМАТИЧЕСКИЙ ПРЕЛОАДЕР
     // ==========================================
     gsap.registerPlugin(ScrollTrigger);
 
-    // Анимация главного экрана
-    gsap.to(".hero-content", {
-        opacity: 1,
-        y: 0,
-        duration: 1.8,
-        ease: "power3.out",
-        delay: 0.5
-    });
+    const preloaderTimeline = gsap.timeline();
+    preloaderTimeline
+        .to(".preloader-initials", {
+            opacity: 1,
+            y: 0,
+            duration: 1.2,
+            ease: "power3.out",
+            delay: 0.3
+        })
+        .to("#preloader", {
+            yPercent: -100,
+            duration: 1.5,
+            ease: "power3.inOut",
+            delay: 0.5
+        }, 'preloader-exit')
+        .to(".hero-content", {
+            opacity: 1,
+            y: 0,
+            duration: 1.8,
+            ease: "power3.out"
+        }, 'preloader-exit+=0.2');
 
-    // Анимация появления остальных секций
+    // ==========================================
+    // 2. АНИМАЦИИ ПОЯВЛЕНИЯ СЕКЦИЙ
+    // ==========================================
     const revealElements = document.querySelectorAll('.gsap-reveal');
     revealElements.forEach(el => {
         gsap.from(el, {
@@ -31,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ==========================================
-    // 2. ЛОГИКА РАСКРЫТИЯ RSVP-ФОРМЫ
+    // 3. ЛОГИКА РАСКРЫТИЯ RSVP-ФОРМЫ
     // ==========================================
     const attendanceRadios = document.querySelectorAll('input[name="attendance"]');
     const conditionalWrapper = document.getElementById('conditional-fields');
@@ -58,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ==========================================
-    // 3. ОТПРАВКА ДАННЫХ В GOOGLE ТАБЛИЦУ
+    // 4. ОТПРАВКА ДАННЫХ В GOOGLE ТАБЛИЦУ
     // ==========================================
     const form = document.getElementById('rsvp-form');
     const submitBtn = document.getElementById('submit-btn');
@@ -90,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 // Сброс состояния после отправки
                 conditionalWrapper.classList.remove('active');
                 conditionalWrapper.setAttribute('aria-hidden', 'true');
-                toggleRequired(false); // Снимаем required, чтобы не блокировать повторную отправку
+                toggleRequired(false);
             } else {
                 throw new Error('Ошибка сети');
             }

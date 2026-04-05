@@ -33,7 +33,13 @@ body {
     width: 100%;
     max-width: 900px;
     margin: 0 auto;
-    padding: 100px 24px;
+    padding: 150px 24px;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 100px 24px;
+    }
 }
 
 h1, h2, h3, .section-title {
@@ -212,6 +218,30 @@ h1, h2, h3, .section-title {
     margin-top: 0.4rem;
 }
 
+/* --- PRELOADER --- */
+.preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-color);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    will-change: transform, opacity;
+}
+
+.preloader-initials {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    letter-spacing: 0.2em;
+    color: var(--text-color);
+    opacity: 0;
+    transform: translateY(20px);
+}
+
 /* --- DRESS CODE --- */
 .dress-code {
     text-align: center;
@@ -239,26 +269,45 @@ h1, h2, h3, .section-title {
 }
 
 .color-palette {
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-    flex-wrap: wrap;
+    display: grid;
+    gap: 12px;
+    margin-top: 2rem;
 }
 
-.color-circle {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
+.color-palette.women {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-auto-rows: 180px;
+}
+
+.color-palette.women .color-image:first-child {
+    grid-row: span 2;
+}
+
+.color-palette.women .color-image:nth-child(4) {
+    grid-column: span 2;
+}
+
+.color-palette.men {
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 160px;
+}
+
+.color-palette.men .color-image:first-child {
+    grid-row: span 2;
+}
+
+.color-image {
     overflow: hidden;
-    border: 1px solid rgba(0,0,0,0.05);
-    transition: transform 0.3s ease;
+    border-radius: 4px;
+    transition: var(--transition);
+    will-change: transform;
 }
 
-.color-circle:hover {
-    transform: scale(1.1);
+.color-image:hover {
+    transform: scale(1.03);
 }
 
-.color-circle img {
+.color-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -293,21 +342,43 @@ h1, h2, h3, .section-title {
     color: var(--text-color);
 }
 
-input[type="text"] {
+.floating-label {
+    position: relative;
+    margin-top: 2rem;
+}
+
+.floating-label input {
     width: 100%;
     background: transparent;
     border: none;
     border-bottom: 1px solid rgba(61, 61, 61, 0.2);
-    padding: 12px 0;
+    padding: 20px 0 8px 0;
     font-family: var(--font-body);
     font-size: 1rem;
     color: var(--text-color);
     transition: var(--transition);
 }
 
-input[type="text"]:focus {
+.floating-label input:focus {
     outline: none;
     border-bottom-color: var(--accent-color);
+}
+
+.floating-label label {
+    position: absolute;
+    left: 0;
+    top: 16px;
+    font-weight: 300;
+    color: rgba(61, 61, 61, 0.5);
+    transition: var(--transition);
+    pointer-events: none;
+}
+
+.floating-label input:focus + label,
+.floating-label input:not(:placeholder-shown) + label {
+    top: 0;
+    font-size: 0.8rem;
+    color: var(--accent-color);
 }
 
 .radio-group, .checkbox-group {
@@ -409,14 +480,47 @@ input[type="checkbox"]:checked + .check-custom::after {
     letter-spacing: 0.25em;
 }
 
+/* --- FOOTER --- */
+.footer {
+    text-align: center;
+    padding-bottom: 80px;
+}
+
+.footer-text {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+}
+
+.footer-initials {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    color: var(--text-color);
+    font-weight: 400;
+    letter-spacing: 0.1em;
+}
+
 /* --- RESPONSIVE --- */
-@media (max-width: 480px) {
-    .color-circle {
-        width: 60px;
-        height: 60px;
-    }
+@media (max-width: 768px) {
     .color-palette {
-        gap: 10px;
+        grid-template-columns: 1fr 1fr !important;
+        grid-auto-rows: 140px;
+    }
+    .color-palette .color-image:first-child {
+        grid-row: auto;
+        grid-column: auto;
+    }
+    .color-palette .color-image:nth-child(4) {
+        grid-column: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .color-palette {
+        grid-template-columns: 1fr !important;
+        grid-auto-rows: 180px;
     }
 }
 

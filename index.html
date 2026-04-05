@@ -15,6 +15,11 @@
 </head>
 <body>
 
+    <!-- Кинематический Прелоадер -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-initials">K & A</div>
+    </div>
+
     <!-- Главный экран -->
     <section class="hero" id="hero">
         <div class="hero-bg"></div>
@@ -76,24 +81,24 @@
         
         <div class="dress-code-group">
             <h3 class="dress-code-subtitle">Для дам</h3>
-            <div class="color-palette">
-                <div class="color-circle"><img src="1.jpg" alt="Оттенок 1" loading="lazy"></div>
-                <div class="color-circle"><img src="2.jpg" alt="Оттенок 2" loading="lazy"></div>
-                <div class="color-circle"><img src="3.jpg" alt="Оттенок 3" loading="lazy"></div>
-                <div class="color-circle"><img src="4.jpg" alt="Оттенок 4" loading="lazy"></div>
-                <div class="color-circle"><img src="5.jpg" alt="Оттенок 5" loading="lazy"></div>
-                <div class="color-circle"><img src="6.jpg" alt="Оттенок 6" loading="lazy"></div>
+            <div class="color-palette women">
+                <div class="color-image"><img src="1.jpg" alt="Оттенок 1" loading="lazy"></div>
+                <div class="color-image"><img src="2.jpg" alt="Оттенок 2" loading="lazy"></div>
+                <div class="color-image"><img src="3.jpg" alt="Оттенок 3" loading="lazy"></div>
+                <div class="color-image"><img src="4.jpg" alt="Оттенок 4" loading="lazy"></div>
+                <div class="color-image"><img src="5.jpg" alt="Оттенок 5" loading="lazy"></div>
+                <div class="color-image"><img src="6.jpg" alt="Оттенок 6" loading="lazy"></div>
             </div>
         </div>
 
         <div class="dress-code-group">
             <h3 class="dress-code-subtitle">Для джентльменов</h3>
-            <div class="color-palette">
-                <div class="color-circle"><img src="7.jpg" alt="Оттенок 7" loading="lazy"></div>
-                <div class="color-circle"><img src="8.jpg" alt="Оттенок 8" loading="lazy"></div>
-                <div class="color-circle"><img src="9.jpg" alt="Оттенок 9" loading="lazy"></div>
-                <div class="color-circle"><img src="10.jpg" alt="Оттенок 10" loading="lazy"></div>
-                <div class="color-circle"><img src="11.jpg" alt="Оттенок 11" loading="lazy"></div>
+            <div class="color-palette men">
+                <div class="color-image"><img src="7.jpg" alt="Оттенок 7" loading="lazy"></div>
+                <div class="color-image"><img src="8.jpg" alt="Оттенок 8" loading="lazy"></div>
+                <div class="color-image"><img src="9.jpg" alt="Оттенок 9" loading="lazy"></div>
+                <div class="color-image"><img src="10.jpg" alt="Оттенок 10" loading="lazy"></div>
+                <div class="color-image"><img src="11.jpg" alt="Оттенок 11" loading="lazy"></div>
             </div>
         </div>
     </section>
@@ -105,8 +110,9 @@
         
         <form id="rsvp-form" class="rsvp-form">
             <!-- Базовые поля -->
-            <div class="form-group">
-                <input type="text" id="guest-name" name="name" required placeholder="Ваше Имя и Фамилия">
+            <div class="form-group floating-label">
+                <input type="text" id="guest-name" name="name" required>
+                <label for="guest-name">Ваше Имя и Фамилия</label>
             </div>
 
             <div class="form-group radio-group main-attendance">
@@ -159,6 +165,12 @@
             <div class="form-message" id="form-message"></div>
         </form>
     </section>
+
+    <!-- Elegant Footer -->
+    <footer class="footer container">
+        <p class="footer-text">С нетерпением ждем этого дня</p>
+        <h2 class="footer-initials">K & A</h2>
+    </footer>
 
     <!-- Подключение GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
