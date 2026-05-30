@@ -3,178 +3,1105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Кирилл и Александра | Свадебное приглашение</title>
+    <title>Приглашение на свадьбу Саши и Кирилла</title>
     
-    <!-- Подключение шрифтов -->
+    <!-- Подключение элегантных шрифтов-аналогов для веба. -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
-    
-    <!-- Подключение стилей -->
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #FAF6F0; /* Нежный бежевый фон */
+            --text-color: #4A4540;
+            --accent-color: #8C2D38; /* Бордовый оттенок для линии таймлайна и акцентов */
+            --header-font: 'Anastasia Script', 'Great Vibes', 'Playfair Display', cursive;
+            --body-font: 'Felidae', 'Cormorant Garamond', serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--body-font);
+            font-size: 18px;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Декоративные фоновые цветы */
+        .flower-decor {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            opacity: 0.7;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .fd-1 { top: 2%; left: 5%; transform: rotate(15deg); }
+        .fd-2 { top: 15%; right: 5%; transform: rotate(-25deg); }
+        .fd-3 { top: 32%; left: 3%; transform: rotate(45deg); }
+        .fd-4 { top: 48%; right: 4%; transform: rotate(115deg); }
+        .fd-5 { top: 68%; left: 5%; transform: rotate(-15deg); }
+        .fd-6 { top: 82%; right: 3%; transform: rotate(55deg); }
+        .fd-7 { top: 94%; left: 8%; transform: rotate(20deg); }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+            margin-bottom: 80px;
+            text-align: center;
+        }
+
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h1, h2, .script-text {
+            font-family: var(--header-font);
+            font-weight: normal;
+            color: #3D352E;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            margin-bottom: 15px;
+        }
+
+        a {
+            color: var(--text-color);
+            text-decoration: underline;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: var(--accent-color);
+        }
+
+        .image-wrapper {
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            background-color: #eae6e1;
+            margin: 15px 0;
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* 1. СТИЛЬ ПОЛАРОИД ДЛЯ ДЕТСКИХ ФОТОГРАФИЙ */
+        .polaroids-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding-top: 10px;
+        }
+
+        .polaroid {
+            background-color: #FFFFFF;
+            padding: 12px 12px 24px 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            width: 45%;
+            max-width: 220px;
+            transition: transform 0.5s ease;
+        }
+
+        .polaroid-left {
+            transform: rotate(-4deg);
+        }
+
+        .polaroid-right {
+            transform: rotate(3deg);
+        }
+
+        .polaroid:hover {
+            transform: scale(1.05) rotate(0deg);
+            z-index: 10;
+        }
+
+        .polaroid-img-box {
+            width: 100%;
+            aspect-ratio: 1/1;
+            overflow: hidden;
+            background-color: #F3EFE9;
+        }
+
+        .polaroid-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .polaroid-caption {
+            font-family: var(--header-font);
+            font-size: 1.8rem;
+            text-align: center;
+            margin-top: 12px;
+            color: #4A4540;
+            line-height: 1.1;
+        }
+
+        /* 2. БЛОК ПРИГЛАШЕНИЕ (Вертикальная рамка 9:16 с полным вписанием фото) */
+        .couple-photo {
+            width: 100%;
+            max-width: 380px; /* Ограничение ширины для аккуратного отображения */
+            aspect-ratio: 9 / 16; /* Пропорции 720x1280 */
+            margin: 15px auto 25px auto;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            background-color: #eae6e1;
+        }
+
+        .couple-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Изображение полностью вписывается без обрезки */
+            display: block;
+        }
+
+        /* 3. КАЛЕНДАРЬ */
+        .date-highlight {
+            font-size: 3rem;
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            max-width: 320px;
+            margin: 0 auto;
+            gap: 8px;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+
+        .calendar-header {
+            font-weight: bold;
+            font-size: 0.8rem;
+            opacity: 0.7;
+            text-transform: uppercase;
+        }
+
+        .calendar-day {
+            padding: 8px 0;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .calendar-day.empty {
+            pointer-events: none;
+        }
+
+        .heart-day {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .heart-day::before {
+            content: '';
+            position: absolute;
+            width: 34px;
+            height: 34px;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238C2D38' stroke-width='1.5'><path d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/></svg>");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.8;
+            z-index: -1;
+        }
+
+        /* 4. МЕСТО ПРОВЕДЕНИЯ */
+        .venue-block {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+            text-align: left;
+        }
+
+        @media (min-width: 500px) {
+            .venue-block {
+                flex-direction: row;
+            }
+            .venue-block > * {
+                flex: 1;
+            }
+        }
+
+        /* 4. МЕСТО ПРОВЕДЕНИЯ (Квадратная рамка 1:1 с обрезкой краев) */
+        .venue-image {
+            width: 100%;
+            max-width: 100%;
+            aspect-ratio: 1 / 1; /* Пропорции 900x900 */
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            background-color: #eae6e1;
+        }
+
+        .venue-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Края изображения обрезаются, заполняя рамку */
+            display: block;
+        }
+
+        /* 5. КНОПКА */
+        .btn-link {
+            display: inline-block;
+            background-color: #8C7A6B;
+            color: #ffffff !important;
+            padding: 12px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: background-color 0.3s, transform 0.2s;
+            margin-top: 15px;
+        }
+
+        .btn-link:hover {
+            background-color: #6E5F52;
+            transform: translateY(-2px);
+        }
+
+        /* 6. ОБНОВЛЕННЫЙ ТАЙМЛАЙН С ВОЛНИСТОЙ ЛИНИЕЙ */
+        .wavy-timeline-container {
+            position: relative;
+            max-width: 540px;
+            margin: 40px auto;
+            padding: 20px 0;
+        }
+
+        /* Фоновая интерактивная волнистая SVG линия */
+        .wavy-line-container {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 40px;
+            transform: translateX(-50%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .wavy-svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .timeline-node {
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            margin-bottom: 60px;
+        }
+
+        .timeline-node:last-child {
+            margin-bottom: 0;
+        }
+
+        .node-side {
+            width: 45%;
+            padding: 0 15px;
+        }
+
+        .node-center-spacer {
+            width: 10%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .node-side.text-side {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .node-side.img-side {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .node-time {
+            font-size: 1.6rem;
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-bottom: 4px;
+            font-family: var(--body-font);
+        }
+
+        .node-description {
+            font-size: 0.95rem;
+            line-height: 1.4;
+            color: var(--text-color);
+        }
+
+        /* Стилизация иллюстраций в таймлайне */
+        .node-illustration {
+            max-width: 100px;
+            max-height: 100px;
+            object-fit: contain;
+            filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.05));
+        }
+
+        /* Выравнивание текста в зависимости от стороны */
+        .align-right {
+            text-align: right;
+            align-items: flex-end;
+        }
+
+        .align-left {
+            text-align: left;
+            align-items: flex-start;
+        }
+
+        /* Направление на мобильных */
+        @media (max-width: 480px) {
+            .node-time {
+                font-size: 1.3rem;
+            }
+            .node-description {
+                font-size: 0.85rem;
+            }
+            .node-illustration {
+                max-width: 75px;
+                max-height: 75px;
+            }
+        }
+
+        /* 7. ДРЕСС-КОД БЕЗ ЭФФЕКТОВ ОБЪЕМА */
+        .dress-code-section {
+            margin-top: 25px;
+        }
+
+        .gender-title {
+            font-size: 1.2rem;
+            margin: 20px 0 10px 0;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .palette {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        /* Плоские минималистичные кружки без теней и градиентов */
+        .color-circle {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: none;
+            box-shadow: none;
+        }
+
+        .color-circle[style*="#FFFFFF"] {
+            border: 1px solid #D1C7BD;
+        }
+
+        /* --- Стилизация интерактивной RSVP-формы --- */
+        .rsvp-form {
+            background-color: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(140, 122, 107, 0.15);
+            padding: 30px 25px;
+            border-radius: 8px;
+            text-align: left;
+            margin-top: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+        }
+
+        /* Скрываем нативные радиокнопки и чекбоксы, чтобы они не задваивались */
+        .rsvp-form input[type="radio"],
+        .rsvp-form input[type="checkbox"] {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .group-title {
+            display: block;
+            font-family: var(--body-font);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 1.2rem;
+            color: var(--text-color);
+            letter-spacing: 0.5px;
+        }
+
+        .floating-label {
+            position: relative;
+            margin-top: 1rem;
+        }
+
+        .floating-label input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(74, 69, 64, 0.3);
+            padding: 20px 0 8px 0;
+            font-family: var(--body-font);
+            font-size: 1.05rem;
+            color: var(--text-color);
+            transition: border-color 0.4s ease;
+        }
+
+        .floating-label input:focus {
+            outline: none;
+            border-bottom-color: var(--accent-color);
+        }
+
+        .floating-label label {
+            position: absolute;
+            left: 0;
+            top: 16px;
+            font-weight: 300;
+            color: rgba(74, 69, 64, 0.6);
+            transition: all 0.4s ease;
+            pointer-events: none;
+        }
+
+        .floating-label input:focus + label,
+        .floating-label input:not(:placeholder-shown) + label {
+            top: -4px;
+            font-size: 0.8rem;
+            color: var(--accent-color);
+        }
+
+        .radio-group, .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .radio-group.main-attendance {
+            flex-direction: row;
+            gap: 25px;
+            margin-bottom: 2rem;
+        }
+
+        .radio-label, .check-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 300;
+            transition: opacity 0.3s ease;
+            user-select: none;
+        }
+
+        .radio-label:hover, .check-label:hover {
+            opacity: 0.8;
+        }
+
+        .radio-custom, .check-custom {
+            width: 20px;
+            height: 20px;
+            border: 1px solid #C2B8B0;
+            margin-right: 12px;
+            display: inline-block;
+            position: relative;
+            flex-shrink: 0;
+            background-color: rgba(255, 255, 255, 0.8);
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .radio-custom { border-radius: 50%; }
+        .check-custom { border-radius: 4px; }
+
+        input[type="radio"]:checked + .radio-custom {
+            border-color: var(--accent-color);
+        }
+
+        input[type="radio"]:checked + .radio-custom::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+        }
+
+        input[type="checkbox"]:checked + .check-custom {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
+        input[type="checkbox"]:checked + .check-custom::after {
+            content: '';
+            position: absolute;
+            top: 2px; left: 6px;
+            width: 4px; height: 9px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .conditional-wrapper {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .conditional-wrapper.active {
+            grid-template-rows: 1fr;
+        }
+
+        .conditional-content {
+            overflow: hidden;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background-color: var(--text-color);
+            color: #FFFFFF;
+            border: none;
+            border-radius: 4px;
+            font-family: var(--body-font);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            cursor: pointer;
+            transition: background-color 0.3s, letter-spacing 0.3s;
+            margin-top: 1rem;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--accent-color);
+            letter-spacing: 0.2em;
+        }
+
+        .form-message {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 0.95rem;
+            font-weight: 400;
+            min-height: 24px;
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 2.8rem; }
+            h2 { font-size: 2.1rem; }
+            body { font-size: 16px; }
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Кинематический Прелоадер -->
-    <div class="preloader" id="preloader">
-        <div class="preloader-initials">K & A</div>
-    </div>
+    <!-- Декоративные фоновые акварельные цветы -->
+    <svg class="flower-decor fd-1" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="18" fill="#FFB5C0" opacity="0.6"/>
+        <circle cx="35" cy="40" r="15" fill="#FFD3AC" opacity="0.5"/>
+        <circle cx="65" cy="45" r="15" fill="#FFFF99" opacity="0.4"/>
+        <circle cx="48" cy="62" r="16" fill="#C6EBAD" opacity="0.5"/>
+    </svg>
 
-    <!-- Главный экран -->
-    <section class="hero" id="hero">
-        <div class="hero-bg"></div>
-        <div class="hero-content">
-            <h3 class="hero-subtitle">Дом у тихой воды</h3>
-            <h1 class="hero-title">Кирилл <span>&</span> Александра</h1>
-            <h2 class="hero-date">27 . 07 . 2026</h2>
-        </div>
-    </section>
+    <svg class="flower-decor fd-2" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="20" fill="#DAD0ED" opacity="0.6"/>
+        <circle cx="38" cy="42" r="15" fill="#D0E4ED" opacity="0.5"/>
+        <circle cx="60" cy="58" r="17" fill="#FFB5C0" opacity="0.4"/>
+    </svg>
 
-    <!-- Инфо-блок -->
-    <section class="info container gsap-reveal">
-        <p class="info-text">
-            Мы приглашаем вас разделить с нами день, когда мы станем семьей. <br>
-            Вдали от городской суеты, в окружении вековых сосен и тихой воды.
-        </p>
-        <div class="info-location">
-            <span class="location-title">Локация</span>
-            <span class="location-name">Ресторан «Времена года»</span>
-            <span class="location-desc">Лес на берегу Обского моря</span>
-        </div>
-    </section>
+    <svg class="flower-decor fd-3" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="18" fill="#F7E6CA" opacity="0.7"/>
+        <circle cx="42" cy="62" r="14" fill="#FFFF99" opacity="0.5"/>
+        <circle cx="62" cy="42" r="14" fill="#C6EBAD" opacity="0.5"/>
+    </svg>
 
-    <!-- Тайминг (Timeline) -->
-    <section class="timeline-section container gsap-reveal">
-        <h2 class="section-title">Тайминг дня</h2>
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="timeline-time">15:30</div>
-                <div class="timeline-content">Сбор гостей (Welcome)</div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-time">16:30</div>
-                <div class="timeline-content">Начало церемонии</div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-time">17:30</div>
-                <div class="timeline-content">Начало свадебного ужина</div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-time">20:30</div>
-                <div class="timeline-content">Золотой час<br><span>Время для эстетичных фото на закате</span></div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-time">22:00</div>
-                <div class="timeline-content">Вынос торта</div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-time">23:30</div>
-                <div class="timeline-content">Завершение банкета</div>
-            </div>
-        </div>
-    </section>
+    <svg class="flower-decor fd-4" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="18" fill="#FFB5C0" opacity="0.6"/>
+        <circle cx="35" cy="45" r="16" fill="#DAD0ED" opacity="0.5"/>
+        <circle cx="60" cy="40" r="14" fill="#D0E4ED" opacity="0.5"/>
+    </svg>
 
-    <!-- Дресс-код -->
-    <section class="dress-code container gsap-reveal">
-        <h2 class="section-title">Дресс-код</h2>
-        <p class="dress-code-text">Мы будем благодарны, если вы поддержите эстетику нашего вечера, выбрав наряды в светлых природных оттенках.</p>
-        
-        <div class="dress-code-group">
-            <h3 class="dress-code-subtitle">Для дам</h3>
-            <div class="color-palette women">
-                <div class="color-image"><img src="1.jpg" alt="Оттенок 1" loading="lazy"></div>
-                <div class="color-image"><img src="2.jpg" alt="Оттенок 2" loading="lazy"></div>
-                <div class="color-image"><img src="3.jpg" alt="Оттенок 3" loading="lazy"></div>
-                <div class="color-image"><img src="4.jpg" alt="Оттенок 4" loading="lazy"></div>
-                <div class="color-image"><img src="5.jpg" alt="Оттенок 5" loading="lazy"></div>
-                <div class="color-image"><img src="6.jpg" alt="Оттенок 6" loading="lazy"></div>
-            </div>
-        </div>
+    <svg class="flower-decor fd-5" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="19" fill="#FFD3AC" opacity="0.6"/>
+        <circle cx="40" cy="40" r="15" fill="#F7E6CA" opacity="0.5"/>
+        <circle cx="58" cy="60" r="16" fill="#C6EBAD" opacity="0.5"/>
+    </svg>
 
-        <div class="dress-code-group">
-            <h3 class="dress-code-subtitle">Для джентльменов</h3>
-            <div class="color-palette men">
-                <div class="color-image"><img src="7.jpg" alt="Оттенок 7" loading="lazy"></div>
-                <div class="color-image"><img src="8.jpg" alt="Оттенок 8" loading="lazy"></div>
-                <div class="color-image"><img src="9.jpg" alt="Оттенок 9" loading="lazy"></div>
-                <div class="color-image"><img src="10.jpg" alt="Оттенок 10" loading="lazy"></div>
-                <div class="color-image"><img src="11.jpg" alt="Оттенок 11" loading="lazy"></div>
-            </div>
-        </div>
-    </section>
+    <svg class="flower-decor fd-6" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="18" fill="#DAD0ED" opacity="0.6"/>
+        <circle cx="38" cy="58" r="15" fill="#FFB5C0" opacity="0.5"/>
+        <circle cx="62" cy="42" r="14" fill="#FFFF99" opacity="0.4"/>
+    </svg>
 
-    <!-- RSVP Форма -->
-    <section class="rsvp-section container gsap-reveal">
-        <h2 class="section-title">RSVP</h2>
-        <p class="rsvp-subtitle">Пожалуйста, подтвердите ваше присутствие до 1 июля 2026 года</p>
-        
-        <form id="rsvp-form" class="rsvp-form">
-            <!-- Базовые поля -->
-            <div class="form-group floating-label">
-                <input type="text" id="guest-name" name="name" required>
-                <label for="guest-name">Ваше Имя и Фамилия</label>
-            </div>
+    <svg class="flower-decor fd-7" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="18" fill="#C6EBAD" opacity="0.6"/>
+        <circle cx="40" cy="40" r="16" fill="#D0E4ED" opacity="0.5"/>
+        <circle cx="58" cy="58" r="15" fill="#FFD3AC" opacity="0.5"/>
+    </svg>
 
-            <div class="form-group radio-group main-attendance">
-                <label class="radio-label">
-                    <input type="radio" name="attendance" value="yes" required>
-                    <span class="radio-custom"></span>
-                    С удовольствием приду
-                </label>
-                <label class="radio-label">
-                    <input type="radio" name="attendance" value="no">
-                    <span class="radio-custom"></span>
-                    К сожалению, не смогу
-                </label>
-            </div>
+    <div class="container">
 
-            <!-- Скрытый блок (раскрывается при выборе "Приду") -->
-            <div class="conditional-wrapper" id="conditional-fields" aria-hidden="true">
-                <div class="conditional-content">
-                    
-                    <div class="form-group">
-                        <span class="group-title">Предпочтения в баре</span>
-                        <div class="checkbox-group">
-                            <label><input type="checkbox" name="alcohol" value="Вино"><span class="check-custom"></span>Предпочитаю красное или белое вино</label>
-                            <label><input type="checkbox" name="alcohol" value="Крепкий"><span class="check-custom"></span>Выберу крепкие напитки</label>
-                            <label><input type="checkbox" name="alcohol" value="Шампанское/б-а"><span class="check-custom"></span>Поддержу вечер безалкогольными коктейлями/шампанским</label>
-                        </div>
+        <!-- 1. БЛОК ПРИВЕТСТВИЯ С ДЕТСКИМИ ФОТО И ПОДПИСЬЮ "УЗНАЛИ?" -->
+        <section class="fade-in-section">
+            <div class="polaroids-container">
+                <div class="polaroid polaroid-left">
+                    <div class="polaroid-img-box">
+                        <img src="Детское Саша.jpg" alt="Саша в детстве">
                     </div>
-
-                    <div class="form-group">
-                        <span class="group-title">Трансфер</span>
-                        <div class="radio-group vertical">
-                            <label><input type="radio" name="transfer" value="Сам из Новосибирска"><span class="radio-custom"></span>Приеду сам из Новосибирска</label>
-                            <label><input type="radio" name="transfer" value="Сам из Барнаула"><span class="radio-custom"></span>Приеду сам из Барнаула</label>
-                            <label><input type="radio" name="transfer" value="Трансфер из Новосибирска"><span class="radio-custom"></span>Трансфер с гостями из Новосибирска</label>
-                        </div>
+                    <div class="polaroid-caption">Александра</div>
+                </div>
+                <div class="polaroid polaroid-right">
+                    <div class="polaroid-img-box">
+                        <img src="Детское Кирилл.jpg" alt="Кирилл в детстве">
                     </div>
-
-                    <div class="form-group">
-                        <span class="group-title">Проживание</span>
-                        <div class="radio-group vertical">
-                            <label><input type="radio" name="accommodation" value="Нужна помощь"><span class="radio-custom"></span>Нужна помощь с поиском жилья</label>
-                            <label><input type="radio" name="accommodation" value="Сам забронирую"><span class="radio-custom"></span>Выберу и забронирую самостоятельно</label>
-                        </div>
-                    </div>
-
+                    <div class="polaroid-caption">Кирилл</div>
                 </div>
             </div>
+            <h2>Узнали?</h2>
+            <p>Да-да, это мы! Время пронеслось незаметно, и у этих двух деток скоро свадьба!</p>
+        </section>
 
-            <button type="submit" class="submit-btn" id="submit-btn">Отправить ответ</button>
-            <div class="form-message" id="form-message"></div>
-        </form>
-    </section>
+        <!-- 2. БЛОК ПРИГЛАШЕНИЕ С ОБЩИМ ФОТО -->
+        <section class="fade-in-section">
+            <div class="image-wrapper couple-photo">
+                <img class="image-placeholder" src="Общее.jpg" alt="Саша и Кирилл">
+            </div>
+            <h2>Дорогие родные и близкие!</h2>
+            <p>Мы с радостью приглашаем вас разделить с нами наш особенный день - день нашей свадьбы. Это официальное приглашение, а получили вы его потому что не представляем наш праздник без вашего участия. Разделите с нами это главное событие лета!</p>
+        </section>
 
-    <!-- Elegant Footer -->
-    <footer class="footer container">
-        <p class="footer-text">С нетерпением ждем этого дня</p>
-        <h2 class="footer-initials">K & A</h2>
-    </footer>
+        <!-- 3. БЛОК С ДАТОЙ -->
+        <section class="fade-in-section">
+            <div class="date-highlight">27 июля 2026</div>
+            
+            <div class="calendar">
+                <div class="calendar-header">Пн</div>
+                <div class="calendar-header">Вт</div>
+                <div class="calendar-header">Ср</div>
+                <div class="calendar-header">Чт</div>
+                <div class="calendar-header">Пт</div>
+                <div class="calendar-header">Сб</div>
+                <div class="calendar-header">Вс</div>
+                
+                <div class="calendar-day empty"></div>
+                <div class="calendar-day empty"></div>
+                <div class="calendar-day">1</div>
+                <div class="calendar-day">2</div>
+                <div class="calendar-day">3</div>
+                <div class="calendar-day">4</div>
+                <div class="calendar-day">5</div>
+                
+                <div class="calendar-day">6</div>
+                <div class="calendar-day">7</div>
+                <div class="calendar-day">8</div>
+                <div class="calendar-day">9</div>
+                <div class="calendar-day">10</div>
+                <div class="calendar-day">11</div>
+                <div class="calendar-day">12</div>
+                
+                <div class="calendar-day">13</div>
+                <div class="calendar-day">14</div>
+                <div class="calendar-day">15</div>
+                <div class="calendar-day">16</div>
+                <div class="calendar-day">17</div>
+                <div class="calendar-day">18</div>
+                <div class="calendar-day">19</div>
+                
+                <div class="calendar-day">20</div>
+                <div class="calendar-day">21</div>
+                <div class="calendar-day">22</div>
+                <div class="calendar-day">23</div>
+                <div class="calendar-day">24</div>
+                <div class="calendar-day">25</div>
+                <div class="calendar-day">26</div>
+                
+                <div class="calendar-day heart-day">27</div>
+                <div class="calendar-day">28</div>
+                <div class="calendar-day">29</div>
+                <div class="calendar-day">30</div>
+                <div class="calendar-day">31</div>
+            </div>
+        </section>
 
-    <!-- Подключение GSAP -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="script.js"></script>
+        <!-- 4. БЛОК МЕСТО ПРОВЕДЕНИЯ -->
+        <section class="fade-in-section">
+            <h2>Где всё пройдет</h2>
+            <div class="venue-block">
+                <div class="image-wrapper venue-image">
+                    <img class="image-placeholder" src="Ресторан.jpg" alt="Ресторан Времена года">
+                </div>
+                <div>
+                    <p style="text-align: left; margin: 0;">Праздничный банкет состоится в ресторане "Времена года"<br><strong>ул. Зеленая роща, 10/1, Бердск</strong>.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. КНОПКА КАРТЫ -->
+        <section class="fade-in-section">
+            <a href="https://vk.com/away.php?to=https%3A%2F%2F2gis.ru%2Fnovosibirsk%2Fgeo%2F70000001042849440%2F83.025202%2C54.721073&utf=1" target="_blank" class="btn-link">Как добраться</a>
+        </section>
+
+        <!-- 6. ОБНОВЛЕННЫЙ БЛОК ПРОГРАММА ДНЯ -->
+        <section class="fade-in-section">
+            <h2>Во сколько?</h2>
+            
+            <div class="wavy-timeline-container">
+                <!-- Декоративная фоновая волна во всю высоту контейнера -->
+                <div class="wavy-line-container">
+                    <svg class="wavy-svg" viewBox="0 0 100 800" preserveAspectRatio="none">
+                        <!-- Волнистый путь с финишем-сердцем на конце -->
+                        <path d="M50,0 Q15,100 50,200 T50,400 T50,600 Q85,720 50,770" fill="none" stroke="#8C2D38" stroke-width="2.5" stroke-dasharray="2,2"/>
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" transform="translate(38, 770) scale(0.5)" fill="#8C2D38"/>
+                    </svg>
+                </div>
+
+                <!-- Точка 1: 15:30 Сбор гостей -->
+                <div class="timeline-node">
+                    <div class="node-side text-side align-right">
+                        <div class="node-time">15:30</div>
+                        <div class="node-description">Сбор гостей</div>
+                    </div>
+                    <div class="node-center-spacer"></div>
+                    <div class="node-side img-side">
+                        <img class="node-illustration" src="Бокал.png" alt="Фуршет">
+                    </div>
+                </div>
+
+                <!-- Точка 2: 16:00 Торжественная церемония -->
+                <div class="timeline-node">
+                    <div class="node-side img-side">
+                        <img class="node-illustration" src="Кольца.png" alt="Церемония">
+                    </div>
+                    <div class="node-center-spacer"></div>
+                    <div class="node-side text-side align-left">
+                        <div class="node-time">16:00</div>
+                        <div class="node-description">Торжественная церемония</div>
+                    </div>
+                </div>
+
+                <!-- Точка 3: 17:00 Праздничный банкет -->
+                <div class="timeline-node">
+                    <div class="node-side text-side align-right">
+                        <div class="node-time">17:00</div>
+                        <div class="node-description">Праздничный банкет</div>
+                    </div>
+                    <div class="node-center-spacer"></div>
+                    <div class="node-side img-side">
+                        <img class="node-illustration" src="Тарелка.png" alt="Банкет">
+                    </div>
+                </div>
+
+                <!-- Точка 4: 21:00 Вкусный торт -->
+                <div class="timeline-node">
+                    <div class="node-side img-side">
+                        <img class="node-illustration" src="Торт.png" alt="Торт">
+                    </div>
+                    <div class="node-center-spacer"></div>
+                    <div class="node-side text-side align-left">
+                        <div class="node-time">21:00</div>
+                        <div class="node-description">Вкусный торт</div>
+                    </div>
+                </div>
+
+                <!-- Точка 5: 23:00 Завершение вечера -->
+                <div class="timeline-node">
+                    <div class="node-side text-side align-right">
+                        <div class="node-time">23:00</div>
+                        <div class="node-description">Завершение вечера</div>
+                    </div>
+                    <div class="node-center-spacer"></div>
+                    <div class="node-side img-side">
+                        <img class="node-illustration" src="Свечи.png" alt="Свечи">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. БЛОК ДРЕСС КОД -->
+        <section class="fade-in-section">
+            <h2>Дресс-код</h2>
+            <p>Мы очень ждем и готовимся к нашему незабываемому дню! Поддержите нас Вашими улыбками, а также красивыми нарядами в палитре мероприятия.</p>
+            
+            <div class="dress-code-section">
+                <div class="gender-title">Для дам</div>
+                <div class="palette">
+                    <div class="color-circle" style="background-color: #FFB5C0;" title="#FFB5C0"></div>
+                    <div class="color-circle" style="background-color: #FFD3AC;" title="#FFD3AC"></div>
+                    <div class="color-circle" style="background-color: #FFFF99;" title="#FFFF99"></div>
+                    <div class="color-circle" style="background-color: #F7E6CA;" title="#F7E6CA"></div>
+                    <div class="color-circle" style="background-color: #C6EBAD;" title="#C6EBAD"></div>
+                    <div class="color-circle" style="background-color: #D0E4ED;" title="#D0E4ED"></div>
+                    <div class="color-circle" style="background-color: #DAD0ED;" title="#DAD0ED"></div>
+                </div>
+
+                <div class="gender-title">Для мужчин</div>
+                <div class="palette">
+                    <div class="color-circle" style="background-color: #FFFFFF;" title="#FFFFFF"></div>
+                    <div class="color-circle" style="background-color: #F7E6CA;" title="#F7E6CA"></div>
+                    <div class="color-circle" style="background-color: #C6EBAD;" title="#C6EBAD"></div>
+                    <div class="color-circle" style="background-color: #6F4E37;" title="#6F4E37"></div>
+                    <div class="color-circle" style="background-color: #000000;" title="#000000"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. БЛОК ПОЖЕЛАНИЯ -->
+        <section class="fade-in-section">
+            <h2>Пожелания</h2>
+            <p>Ваше присутствие - самый значимый подарок для нас! Цветы - это здорово, но мы были бы благодарны, если вы на эти средства сделаете вклад в приют <a href="https://vk.com/away.php?to=https%3A%2F%2Fqr.nspk.ru%2FAS1A001F5LH1K21P9NF9G39P30549UM2%3Ftype%3D01%26bank%3D100000000111%26crc%3D4451&utf=1" target="_blank"><strong>"Хвостатая резиденция"</strong></a>. Он поможет обеспечить комфорт и заботу тем, кто в этом действительно нуждается.</p>
+        </section>
+
+        <!-- 9. БЛОК АНКЕТА -->
+        <section class="fade-in-section">
+            <h2>Подтверждение</h2>
+            <p>Пожалуйста, подтвердите свое присутствие до 01.07.2026</p>
+            
+            <div class="rsvp-form" id="rsvp-section">
+                <form id="rsvp-form">
+                    <!-- Поле имени -->
+                    <div class="form-group floating-label">
+                        <input type="text" id="guest-name" name="name" required placeholder=" ">
+                        <label for="guest-name">Ваше Имя и Фамилия</label>
+                    </div>
+                    
+                    <!-- Выбор присутствия -->
+                    <div class="form-group radio-group main-attendance">
+                        <label class="radio-label">
+                            <input type="radio" name="attendance" value="yes" checked required>
+                            <span class="radio-custom"></span>
+                            Да, с удовольствием!
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="attendance" value="no">
+                            <span class="radio-custom"></span>
+                            К сожалению, не смогу
+                        </label>
+                    </div>
+                    
+                    <!-- Раскрывающийся блок с предпочтениями по напиткам -->
+                    <div class="conditional-wrapper active" id="conditional-fields" aria-hidden="false">
+                        <div class="conditional-content">
+                            <div class="form-group">
+                                <span class="group-title">Предпочтения по напиткам</span>
+                                <div class="checkbox-group">
+                                    <label class="check-label">
+                                        <input type="checkbox" name="drinks" value="Шампанское">
+                                        <span class="check-custom"></span>
+                                        Шампанское
+                                    </label>
+                                    <label class="check-label">
+                                        <input type="checkbox" name="drinks" value="Вино красное сухое">
+                                        <span class="check-custom"></span>
+                                        Вино красное сухое
+                                    </label>
+                                    <label class="check-label">
+                                        <input type="checkbox" name="drinks" value="Вино красное полусладкое">
+                                        <span class="check-custom"></span>
+                                        Вино красное полусладкое
+                                    </label>
+                                    <label class="check-label">
+                                        <input type="checkbox" name="drinks" value="Вино белое сухое">
+                                        <span class="check-custom"></span>
+                                        Вино белое сухое
+                                    </label>
+                                    <label class="check-label">
+                                        <input type="checkbox" name="drinks" value="Вино белое полусладкое">
+                                        <span class="check-custom"></span>
+                                        Вино белое полусладкое
+                                    </label>
+                                    <label class="check-label">
+                                        <input type="checkbox" name="drinks" value="Крепкие напитки">
+                                        <span class="check-custom"></span>
+                                        Крепкие напитки
+                                    </label>
+                                    <label class="check-label">
+                                        <input type="checkbox" name="drinks" value="Безалкогольные напитки">
+                                        <span class="check-custom"></span>
+                                        Безалкогольные напитки
+                                    </label>
+                                    <label class="check-label">
+                                        <input type="checkbox" name="drinks_other_trigger" id="other-trigger">
+                                        <span class="check-custom"></span>
+                                        Другое
+                                    </label>
+                                    <!-- Ввод для своего варианта -->
+                                    <div class="other-input-wrapper" id="other-input-wrapper" style="display:none; width:100%; margin-top: 10px;">
+                                        <input type="text" name="drinks_other" id="drinks-other-input" class="form-input" placeholder="Напишите свой вариант...">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn" id="submit-btn">Отправить ответ</button>
+                    <div class="form-message" id="form-message"></div>
+                </form>
+            </div>
+        </section>
+
+        <!-- 10. БЛОК ПРОЩАНИЕ -->
+        <section class="fade-in-section" style="margin-bottom: 20px;">
+            <h2 class="script-text" style="font-size: 3rem;">До скорой встречи!</h2>
+            <p style="font-size: 1.3rem; font-style: italic; margin-top: 10px;">С любовью, ваши Саша и Кирилл!</p>
+        </section>
+
+    </div>
+
+    <!-- JavaScript для плавного появления блоков при скролле -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const sections = document.querySelectorAll('.fade-in-section');
+            
+            const observerOptions = {
+                root: null,
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const observer = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // =======================================================
+            // ЛОГИКА РАСКРЫТИЯ И ОТПРАВКИ RSVP-ФОРМЫ В GOOGLE ТАБЛИЦУ
+            // =======================================================
+            const attendanceRadios = document.querySelectorAll('input[name="attendance"]');
+            const conditionalWrapper = document.getElementById('conditional-fields');
+            
+            // Переключение видимости блока предпочтений
+            attendanceRadios.forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    if (e.target.value === 'yes') {
+                        conditionalWrapper.classList.add('active');
+                        conditionalWrapper.setAttribute('aria-hidden', 'false');
+                    } else {
+                        conditionalWrapper.classList.remove('active');
+                        conditionalWrapper.setAttribute('aria-hidden', 'true');
+                    }
+                });
+            });
+
+            // Обработка чекбокса "Другое"
+            const otherTrigger = document.getElementById('other-trigger');
+            const otherInputWrapper = document.getElementById('other-input-wrapper');
+            const otherInput = document.getElementById('drinks-other-input');
+
+            if (otherTrigger) {
+                otherTrigger.addEventListener('change', (e) => {
+                    if (e.target.checked) {
+                        otherInputWrapper.style.display = 'block';
+                        otherInput.focus();
+                    } else {
+                        otherInputWrapper.style.display = 'none';
+                        otherInput.value = '';
+                    }
+                });
+            }
+
+            // Отправка формы по API
+            const rsvpForm = document.getElementById('rsvp-form');
+            const submitBtn = document.getElementById('submit-btn');
+            const formMessage = document.getElementById('form-message');
+            const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxirjVe2vKggVoDiKPd1sRftSBdu2ouGcFc-ijyPxQjfDi9AOHRjAvj3stjtFRDenEwCQ/exec';
+
+            if (rsvpForm) {
+                rsvpForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+
+                    const originalBtnText = submitBtn.innerText;
+                    submitBtn.innerText = 'Отправка...';
+                    submitBtn.disabled = true;
+                    formMessage.innerText = '';
+
+                    const formData = new FormData(rsvpForm);
+
+                    try {
+                        const response = await fetch(GOOGLE_SCRIPT_URL, {
+                            method: 'POST',
+                            mode: 'no-cors', // Изменено на no-cors для корректного обхода политики перенаправления Google Web Apps
+                            body: formData
+                        });
+
+                        // Так как при mode: 'no-cors' ответ приходит непрозрачным (opaque),
+                        // успешный запрос не вызовет исключения, и мы перейдем к обработке успеха
+                        formMessage.style.color = "var(--accent-color)";
+                        formMessage.innerText = 'Спасибо! Ваш ответ успешно отправлен.';
+                        rsvpForm.reset();
+                        
+                        // Сброс условных отображений
+                        conditionalWrapper.classList.add('active');
+                        conditionalWrapper.setAttribute('aria-hidden', 'false');
+                        otherInputWrapper.style.display = 'none';
+                    } catch (error) {
+                        console.error('Ошибка отправки:', error);
+                        formMessage.style.color = "#d9534f";
+                        formMessage.innerText = 'Произошла ошибка. Пожалуйста, попробуйте позже.';
+                    } finally {
+                        submitBtn.innerText = originalBtnText;
+                        submitBtn.disabled = false;
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>
