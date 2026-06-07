@@ -35,24 +35,6 @@
             position: relative;
         }
 
-        /* Декоративные фоновые цветы */
-        .flower-decor {
-            position: absolute;
-            width: 80px;
-            height: 80px;
-            opacity: 0.7;
-            pointer-events: none;
-            z-index: 1;
-        }
-        
-        .fd-1 { top: 2%; left: 5%; transform: rotate(15deg); }
-        .fd-2 { top: 15%; right: 5%; transform: rotate(-25deg); }
-        .fd-3 { top: 32%; left: 3%; transform: rotate(45deg); }
-        .fd-4 { top: 48%; right: 4%; transform: rotate(115deg); }
-        .fd-5 { top: 68%; left: 5%; transform: rotate(-15deg); }
-        .fd-6 { top: 82%; right: 3%; transform: rotate(55deg); }
-        .fd-7 { top: 94%; left: 8%; transform: rotate(20deg); }
-
         .container {
             max-width: 600px;
             margin: 0 auto;
@@ -640,54 +622,35 @@
             h1 { font-size: 2.8rem; }
             h2 { font-size: 2.1rem; }
             body { font-size: 16px; }
+            /* Адаптация женской палитры дресс-кода: 4+3 кружка в два ряда */
+            .female-palette {
+                max-width: 216px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
+        /* Фиксированный контейнер для сердца таймлайна (предотвращает деформацию) */
+        .timeline-heart-wrapper {
+            position: absolute;
+            bottom: -15px; /* Размещаем ровно на конце линии */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 34px; /* Точный размер сердца из календаря */
+            height: 34px;
+            z-index: 3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .timeline-heart-wrapper svg {
+            width: 100%;
+            height: 100%;
         }
     </style>
 </head>
 <body>
-
-    <!-- Декоративные фоновые акварельные цветы -->
-    <svg class="flower-decor fd-1" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="50" cy="50" r="18" fill="#FFB5C0" opacity="0.6"/>
-        <circle cx="35" cy="40" r="15" fill="#FFD3AC" opacity="0.5"/>
-        <circle cx="65" cy="45" r="15" fill="#FFFF99" opacity="0.4"/>
-        <circle cx="48" cy="62" r="16" fill="#C6EBAD" opacity="0.5"/>
-    </svg>
-
-    <svg class="flower-decor fd-2" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="50" cy="50" r="20" fill="#DAD0ED" opacity="0.6"/>
-        <circle cx="38" cy="42" r="15" fill="#D0E4ED" opacity="0.5"/>
-        <circle cx="60" cy="58" r="17" fill="#FFB5C0" opacity="0.4"/>
-    </svg>
-
-    <svg class="flower-decor fd-3" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="50" cy="50" r="18" fill="#F7E6CA" opacity="0.7"/>
-        <circle cx="42" cy="62" r="14" fill="#FFFF99" opacity="0.5"/>
-        <circle cx="62" cy="42" r="14" fill="#C6EBAD" opacity="0.5"/>
-    </svg>
-
-    <svg class="flower-decor fd-4" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="50" cy="50" r="18" fill="#FFB5C0" opacity="0.6"/>
-        <circle cx="35" cy="45" r="16" fill="#DAD0ED" opacity="0.5"/>
-        <circle cx="60" cy="40" r="14" fill="#D0E4ED" opacity="0.5"/>
-    </svg>
-
-    <svg class="flower-decor fd-5" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="50" cy="50" r="19" fill="#FFD3AC" opacity="0.6"/>
-        <circle cx="40" cy="40" r="15" fill="#F7E6CA" opacity="0.5"/>
-        <circle cx="58" cy="60" r="16" fill="#C6EBAD" opacity="0.5"/>
-    </svg>
-
-    <svg class="flower-decor fd-6" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="50" cy="50" r="18" fill="#DAD0ED" opacity="0.6"/>
-        <circle cx="38" cy="58" r="15" fill="#FFB5C0" opacity="0.5"/>
-        <circle cx="62" cy="42" r="14" fill="#FFFF99" opacity="0.4"/>
-    </svg>
-
-    <svg class="flower-decor fd-7" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="50" cy="50" r="18" fill="#C6EBAD" opacity="0.6"/>
-        <circle cx="40" cy="40" r="16" fill="#D0E4ED" opacity="0.5"/>
-        <circle cx="58" cy="58" r="15" fill="#FFD3AC" opacity="0.5"/>
-    </svg>
 
     <div class="container">
 
@@ -781,7 +744,7 @@
                     <img class="image-placeholder" src="Ресторан.jpg" alt="Ресторан Времена года">
                 </div>
                 <div>
-                    <p style="text-align: left; margin: 0;">Праздничный банкет состоится в ресторане "Времена года"<br><strong>ул. Зеленая роща, 10/1, Бердск</strong>.</p>
+                    <p style="text-align: left; margin: 0;">Праздничный банкет состоится в ресторане "Времена года"<br><strong>ул. Зеленая Роща, 10/1, Бердск</strong>.</p>
                 </div>
             </div>
         </section>
@@ -808,17 +771,20 @@
                                 <stop offset="100%" stop-color="#8C2D38" stop-opacity="0" />
                             </linearGradient>
                         </defs>
-                        <!-- Применение градиента к волнистому пути -->
+                        <!-- Линия с градиентом -->
                         <path d="M50,0 Q15,100 50,200 T50,400 T50,600 Q85,720 50,770" 
                               fill="none" 
                               stroke="url(#timeline-grad)" 
                               stroke-width="2.5" 
                               stroke-dasharray="3,3"/>
-                        
-                        <!-- Чистое векторное сердце, построенное напрямую по координадам оси X=50 -->
-                        <path d="M 50,782 C 34,771 34,756 50,766 C 66,756 66,771 50,782 Z" 
-                              fill="#8C2D38"/>
                     </svg>
+                    
+                    <!-- Независимое пропорциональное сердце (копия стиля сердца из календаря) -->
+                    <div class="timeline-heart-wrapper">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#8C2D38" stroke-width="1.5">
+                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                        </svg>
+                    </div>
                 </div>
 
                 <!-- Точка 1: 15:00 Сбор гостей -->
@@ -890,7 +856,7 @@
             
             <div class="dress-code-section">
                 <div class="gender-title">Для дам</div>
-                <div class="palette">
+                <div class="palette female-palette">
                     <div class="color-circle" style="background-color: #FFB5C0;" title="#FFB5C0"></div>
                     <div class="color-circle" style="background-color: #FFD3AC;" title="#FFD3AC"></div>
                     <div class="color-circle" style="background-color: #FFFF99;" title="#FFFF99"></div>
