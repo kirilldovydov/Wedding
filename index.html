@@ -717,7 +717,7 @@
                 <img class="image-placeholder" src="Общее.jpg" alt="Саша и Кирилл">
             </div>
             <h2>Дорогие родные и близкие!</h2>
-            <p>Мы с радостью приглашаем вас разделить с нами наш особенный день - день нашей свадьбы. Это официальное приглашение, а получили вы его потому что не представляем наш праздник без вашего участия. Разделите с нами это главное событие лета!</p>
+            <p>Мы с радостью приглашаем вас разделить с нами наш особенный день - день нашей свадьбы. Это официальное приглашение, а получили вы его потому что мы не представляем наш праздник без вашего участия. Разделите с нами это главное событие лета!</p>
         </section>
 
         <!-- 3. БЛОК С ДАТОЙ -->
@@ -793,22 +793,38 @@
 
         <!-- 6. ОБНОВЛЕННЫЙ БЛОК ПРОГРАММА ДНЯ -->
         <section class="fade-in-section">
-            <h2>Во сколько?</h2>
+            <h2>Программа дня</h2>
             
             <div class="wavy-timeline-container">
                 <!-- Декоративная фоновая волна во всю высоту контейнера -->
                 <div class="wavy-line-container">
                     <svg class="wavy-svg" viewBox="0 0 100 800" preserveAspectRatio="none">
-                        <!-- Волнистый путь с финишем-сердцем на конце -->
-                        <path d="M50,0 Q15,100 50,200 T50,400 T50,600 Q85,720 50,770" fill="none" stroke="#8C2D38" stroke-width="2.5" stroke-dasharray="2,2"/>
-                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" transform="translate(38, 770) scale(0.5)" fill="#8C2D38"/>
+                        <defs>
+                            <!-- Плавный градиент для мягкого ухода линии в прозрачность -->
+                            <linearGradient id="timeline-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#8C2D38" stop-opacity="0" />
+                                <stop offset="8%" stop-color="#8C2D38" stop-opacity="1" />
+                                <stop offset="92%" stop-color="#8C2D38" stop-opacity="1" />
+                                <stop offset="100%" stop-color="#8C2D38" stop-opacity="0" />
+                            </linearGradient>
+                        </defs>
+                        <!-- Применение градиента к волнистому пути -->
+                        <path d="M50,0 Q15,100 50,200 T50,400 T50,600 Q85,720 50,770" 
+                              fill="none" 
+                              stroke="url(#timeline-grad)" 
+                              stroke-width="2.5" 
+                              stroke-dasharray="3,3"/>
+                        
+                        <!-- Чистое векторное сердце, построенное напрямую по координадам оси X=50 -->
+                        <path d="M 50,782 C 34,771 34,756 50,766 C 66,756 66,771 50,782 Z" 
+                              fill="#8C2D38"/>
                     </svg>
                 </div>
 
-                <!-- Точка 1: 15:30 Сбор гостей -->
+                <!-- Точка 1: 15:00 Сбор гостей -->
                 <div class="timeline-node">
                     <div class="node-side text-side align-right">
-                        <div class="node-time">15:30</div>
+                        <div class="node-time">15:00</div>
                         <div class="node-description">Сбор гостей</div>
                     </div>
                     <div class="node-center-spacer"></div>
@@ -841,14 +857,14 @@
                     </div>
                 </div>
 
-                <!-- Точка 4: 21:00 Вкусный торт -->
+                <!-- Точка 4: 21:30 Вкусный торт -->
                 <div class="timeline-node">
                     <div class="node-side img-side">
                         <img class="node-illustration" src="Торт.png" alt="Торт">
                     </div>
                     <div class="node-center-spacer"></div>
                     <div class="node-side text-side align-left">
-                        <div class="node-time">21:00</div>
+                        <div class="node-time">21:30</div>
                         <div class="node-description">Вкусный торт</div>
                     </div>
                 </div>
