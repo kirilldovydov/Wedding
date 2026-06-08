@@ -962,6 +962,28 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- Предпочтения по горячему блюду -->
+                            <div class="form-group" style="margin-top: 2.5rem;">
+                                <span class="group-title">Предпочтения по горячему блюду</span>
+                                <div class="radio-group" style="flex-direction: column; gap: 12px; margin-top: 10px;">
+                                    <label class="radio-label">
+                                        <input type="radio" name="hot_dish" value="Мясо" required>
+                                        <span class="radio-custom"></span>
+                                        Мясо
+                                    </label>
+                                    <label class="radio-label">
+                                        <input type="radio" name="hot_dish" value="Рыба">
+                                        <span class="radio-custom"></span>
+                                        Рыба
+                                    </label>
+                                    <label class="radio-label">
+                                        <input type="radio" name="hot_dish" value="Птица">
+                                        <span class="radio-custom"></span>
+                                        Птица
+                                    </label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     
@@ -1008,16 +1030,30 @@
             // =======================================================
             const attendanceRadios = document.querySelectorAll('input[name="attendance"]');
             const conditionalWrapper = document.getElementById('conditional-fields');
+            const hotDishRadios = document.querySelectorAll('input[name="hot_dish"]');
             
-            // Переключение видимости блока предпочтений
+            const toggleRequiredFields = (isRequired) => {
+                hotDishRadios.forEach(radio => {
+                    radio.required = isRequired;
+                });
+            };
+
+            // По умолчанию (выбрано "Да") поля горячего блюда обязательны
+            toggleRequiredFields(true);
+
+            // Переключение видимости блока предпочтений и управление обязательными полями
             attendanceRadios.forEach(radio => {
                 radio.addEventListener('change', (e) => {
                     if (e.target.value === 'yes') {
                         conditionalWrapper.classList.add('active');
                         conditionalWrapper.setAttribute('aria-hidden', 'false');
+                        toggleRequiredFields(true);
                     } else {
                         conditionalWrapper.classList.remove('active');
                         conditionalWrapper.setAttribute('aria-hidden', 'true');
+                        toggleRequiredFields(false);
+                        // Сбрасываем выбранную точку на случай, если пользователь передумал идти
+                        hotDishRadios.forEach(r => r.checked = false);
                     }
                 });
             });
@@ -1043,7 +1079,7 @@
             const rsvpForm = document.getElementById('rsvp-form');
             const submitBtn = document.getElementById('submit-btn');
             const formMessage = document.getElementById('form-message');
-            const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxirjVe2vKggVoDiKPd1sRftSBdu2ouGcFc-ijyPxQjfDi9AOHRjAvj3stjtFRDenEwCQ/exec';
+            const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw-3WsVrQrxpsyEsTTPqd4SGYpQ-x-pCFRBr-9gGJb5LyMzMPUrdFuSHJOVefHOR3K_Cw/exec';
 
             if (rsvpForm) {
                 rsvpForm.addEventListener('submit', async (e) => {
